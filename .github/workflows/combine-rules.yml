@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Create dist directory
-        run: mkdir -p dist
-
       - name: Run combine script
         run: bun run combine-rules
 
@@ -31,11 +28,11 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add dist/rules.db.json
+          git add data/rules.db.json
           git diff --quiet && git diff --staged --quiet || git commit -m "chore: update rules.db.json [skip ci]"
 
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }} 
